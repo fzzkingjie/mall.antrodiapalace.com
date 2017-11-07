@@ -1,0 +1,52 @@
+<div mdc-typography-title
+    ngClass.xs="text-align-center"
+    ngStyle.gt-sm="margin-top: 32px;">
+    <strong>立刻以极优惠价格<br>购买爆款产品</strong>
+</div>
+<!-- <div style="margin-bottom: 24px;" ngClass.xs="text-align-center">立刻以极优惠价格购买爆款产品</div> -->
+<form (ngSubmit)="checkout($event)" [formGroup]="loginForm">
+     <mdc-textfield-box type="text"
+                        label="收货人名称"
+                        [required]="true"
+                        formControlName="name"
+                        (keydown.space)="$event.preventDefault();"
+                        class="checkout-input">
+                        <mdc-icon leading>&#xE7FD;</mdc-icon>
+     </mdc-textfield-box>
+     <p mdc-textfield-helptext [validation]="true">{{ getErrorMessage(loginForm.controls.name) }}</p>
+     <mdc-textfield-box type="tel"
+                        label="联系电话"
+                        [required]="true"
+                        formControlName="contact"
+                        (keydown.space)="$event.preventDefault();"
+                        class="checkout-input">
+                        <mdc-icon leading>&#xE0CD;</mdc-icon>
+     </mdc-textfield-box>
+     <p mdc-textfield-helptext [validation]="true">{{ getErrorMessage(loginForm.controls.contact) }}</p>
+     <mdc-textarea label="送货地址"
+                   rows="5"
+                   [required]="true"
+                   formControlName="address"
+                   class="checkout-input">
+    </mdc-textarea>
+    <p mdc-textfield-helptext [validation]="true">{{ getErrorMessage(loginForm.controls.address) }}</p>
+    <mdc-textfield-box type="password"
+                       label="二级密码"
+                       [required]="true"
+                       formControlName="password"
+                       (keydown.space)="$event.preventDefault();"
+                       class="checkout-input resize">
+                       <mdc-icon leading>&#xE897;</mdc-icon>
+    </mdc-textfield-box>
+    <p mdc-textfield-helptext [validation]="true">{{ getErrorMessage(loginForm.controls.password) }}</p>
+     <button mdc-button
+             type="submit"
+             class="checkout-button"
+             secondary="true"
+             raised="true"
+             [disabled]="isLoading">
+             立即抢购
+     </button>
+</form>
+<div fxHide.gt-xs class="checkout-bottom" fxLayout="row" fxLayoutAlign="center center"><span class="dash"></span>或<span class="dash"></span></div>
+<div fxHide.gt-xs class="text-align-center"><a href="javascript:void(0)" (click)="hideForm();">返回</a></div>

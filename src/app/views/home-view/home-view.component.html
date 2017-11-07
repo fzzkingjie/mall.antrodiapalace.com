@@ -1,0 +1,23 @@
+<div class="jm-image-container background"
+     [ngStyle]="{'background-image': 'url(assets/images/home-background-1000x1000.jpg)'}"
+     fxLayout>
+     <div class="home-bgcolor"
+          fxLayout="row" fxFlex *ngIf="isRenderingFinished">
+          <div class="welcome-message" fxFlex.gt-sm fxHide.xs="true">
+              <img src="assets/images/home-logo-1024x1024.png" mdc-elevation="4" class="logo" [@scaleLarge]>
+              <br><br><br>
+              <div mdc-typography-display1 [@fadeSlideUp1]>欢迎来到我们的会员网站！</div>
+              <br>
+              <div mdc-typography-title [@fadeSlideUp2]>健康财富慈悲心 大陆台湾两岸情</div>
+              <div mdc-typography-title [@fadeSlideUp3]>立足福建 放眼中国 胸怀全世界</div>
+          </div>
+          <login-form mdc-elevation="8"
+                      fxFlex.gt-sm="400px"
+                      fxFlex.sm="100%"
+                      (isLoginFormLoading)="isLoading = $event"
+                      [@slideInR2L]>
+          </login-form>
+     </div>
+</div>
+
+<mdc-linear-progress [indeterminate]="true" class="jm-progress-bar" *ngIf="isLoading" [@fadeInOut]></mdc-linear-progress>

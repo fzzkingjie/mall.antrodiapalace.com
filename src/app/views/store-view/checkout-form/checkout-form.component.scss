@@ -1,0 +1,34 @@
+:host {
+  background-color: white;
+  padding: 48px;
+  overflow-y: auto;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.dash {
+  border: 1px solid rgba(128, 128, 128, 0.54);
+  display: inline-block;
+  margin: 8px;
+  width: 48px;
+}
+
+.checkout-input{
+  background-color: rgba(255, 255, 255, 0);
+  width: 100%;
+}
+
+.resize {
+  resize: none;
+}
+
+.checkout-button{
+  margin-top: 48px;
+  width: 100%;
+}
+
+.checkout-bottom{
+  padding: 24px;
+}

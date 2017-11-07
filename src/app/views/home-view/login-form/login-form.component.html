@@ -1,0 +1,41 @@
+<div ngClass.xs="text-align-center">
+     <img src="assets/images/home-logo-1024x1024.png" class="logo" fxHide fxShow.xs="true">
+     <br><br><br>
+</div>
+<div mdc-typography-title
+     ngClass.xs="text-align-center"
+     ngStyle.gt-sm="margin-top: 32px;">
+     <strong>登入到员工福利特区</strong>
+</div>
+<div class="login-head-text" ngClass.xs="text-align-center">立刻以极优惠价格购买爆款产品</div>
+<form (ngSubmit)="login($event)" [formGroup]="loginForm">
+      <mdc-textfield-box type="text"
+                         label="帐号"
+                         [required]="true"
+                         formControlName="username"
+                         (keydown.space)="$event.preventDefault();"
+                         class="login-input">
+                         <mdc-icon leading>person</mdc-icon>
+      </mdc-textfield-box>
+      <p mdc-textfield-helptext [validation]="true">{{ getErrorMessage(loginForm.controls.username) }}</p>
+      <mdc-textfield-box type="password"
+                         label="登入密码"
+                         [required]="true"
+                         formControlName="password"
+                         (keydown.space)="$event.preventDefault();"
+                         class="login-input">
+                         <mdc-icon leading>lock</mdc-icon>
+      </mdc-textfield-box>
+      <p mdc-textfield-helptext [validation]="true">{{ getErrorMessage(loginForm.controls.password) }}</p>
+      <button mdc-button
+              type="submit"
+              class="login-button"
+              primary="true"
+              raised="true"
+              [disabled]="isLoading">
+              登入
+      </button>
+</form>
+<div class="login-bottom" fxLayout="row" fxLayoutAlign="center center"><span class="dash"></span>或<span class="dash"></span></div>
+<div class="text-align-center"><strong>想跳转到会员专区？</strong></div>
+<div class="text-align-center"><a href="javascript:void(0)" (click)="goToUrl('http://www.antrodiapalace.com/member/login.jhtml')">从这里进</a></div>

@@ -1,0 +1,14 @@
+// span {
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   -o-text-overflow: ellipsis;
+//   white-space: nowrap;
+// }
+span:hover {
+  color: #FF0000;
+}
+.text-right{
+  width:210px;
+  text-align:right;
+  display:inline-block;
+}

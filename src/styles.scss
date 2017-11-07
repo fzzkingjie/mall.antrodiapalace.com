@@ -1,1 +1,55 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+
+$mdc-theme-primary: mat-color($mat-green, 500);
+$mdc-theme-secondary: mat-color($mat-orange, 500);
+@import "~@angular-mdc/theme/material";
+
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  *:not(.material-icons) {
+    font-family: "MagistralLight", "Roboto", Tahoma, Arial, Helvetica,
+    "Heiti SC", "Heiti TC", "黑体", "黑體",
+    "Microsoft YaHei New", "Microsoft Yahei", "微软雅黑", "微軟雅黑",
+    "宋体", "SimSun", "STXihei", "华文细黑", "sans-serif" !important;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: mat-color($mat-blue, 500);
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Global Helper Styles
+.jm-image-container {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.jm-progress-bar {
+  left: 0;
+  position: fixed;
+  top: 0;
+}
+
+// Cutomer Global Styles
+.logo {
+  border-radius: 50%;
+  height: 128px;
+  width: 128px;
+}
+
+.measurements-text {
+  display: none;
+}
+.measurements-number {
+  margin: 0;
+}

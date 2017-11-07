@@ -1,0 +1,133 @@
+<div fxLayout="row" style="width: 100%; height: 100%; background-color: rgba(248,248,248,1);">
+<mdc-permanent-drawer fxHide.xs class="jm-image-container" style="background-image: url(./assets/images/home-background-1000x1000.jpg)">
+  <div style="background-color: rgba(255,255,255,0.87); height: 100%;" fxLayout="column">
+    <mdc-permanent-drawer-content>
+      <mdc-list-group>
+        <div style="padding: 16px; text-align: center;">
+          <img src="assets/images/home-logo-1024x1024.png" class="logo">
+          <br>
+          <div>{{ authentication.nickname }}</div>
+          <div>劳务费余额：¥{{ authentication.commB3Balance | number: '1.2-2' }}</div>
+        </div>
+        <mdc-list-divider></mdc-list-divider>
+        <mdc-list>
+          <a mdc-list-item mdc-permanent-drawer-selected href="javascript:void(0)" routerLink="/store">
+            <mdc-icon mdc-list-item-start>store</mdc-icon>所有爆款商品
+          </a>
+          <a mdc-list-item href="javascript:void(0)" routerLink="/orderform">
+            <mdc-icon mdc-list-item-start>table</mdc-icon>我的订单
+          </a>
+          <mdc-list-divider></mdc-list-divider>
+          <a mdc-list-item href="javascript:void(0)">
+            <mdc-icon mdc-list-item-start>phone</mdc-icon>联系客服
+          </a>
+        </mdc-list>
+      </mdc-list-group>
+    </mdc-permanent-drawer-content>
+    <div fxFlex></div>
+    <button mdc-button secondary="true" routerLink="/">退出</button>
+  </div>
+</mdc-permanent-drawer>
+
+    <div fxFlex fxLayout="column"
+          style="background-color: rgba(240,240,240,1);"
+          [fxHide.xs]="isCheckoutFormShown">
+          <div style="padding: 16px;"
+               ngStyle.xs="padding-top: 16px;">
+               <div style="height: 224px; background-color: white; margin-bottom: 16px;"
+                    mdc-elevation="2"
+                    fxLayout="row"
+                    fxLayout.xs="column"
+                    ngStyle.xs="height: 448px;">
+                    <div fxFlex="50%"
+                         class="jm-image-container"
+                         style="background-image: url(./assets/images/product1.jpg)">
+                    </div>
+                    <div fxFlex fxLayout="column" style="padding: 16px;">
+                         <div fxLayout="row" style="border-bottom: 1px solid rgba(0,0,0,0.30);">
+                              <div fxFlex>
+                                   <span mdc-typography-title>高纯度牛樟芝滴丸</span>
+                                   <br>
+                                   <span mdc-typography-body1 style="color: rgba(0,0,0,0.30);">精选爆款</span>
+                              </div>
+                              <div fxLayout="column" fxLayoutAlign="center end">
+                                   <span mdc-typography-body1
+                                         style="color: rgba(0,0,0,0.30); text-decoration: line-through;">
+                                         ¥1,200.00
+                                   </span>
+                                   <span mdc-typography-subheading1>¥369.00</span>
+                              </div>
+                         </div>
+                         <div fxLayoutAlign="center center"
+                              fxFlex
+                              fxLayout="column"
+                              mdc-typography-display1
+                              style="color: red;">
+                              <strong>{{ countdown.displayNumbers[0] | number: '2.0-0' }}{{': '}}{{ countdown.displayNumbers[1] | number: '2.0-0' }}{{': '}}{{ countdown.displayNumbers[2] | number: '2.0-0' }}</strong>
+                              <countdown #countdown units="Hours | Minutes | Seconds" end="2017-11-02" fxHide></countdown>
+                              <!-- <div mdc-typography-headline>庫存：{{ 3000 | number: '1.0-0' }} 件</div> -->
+                         </div>
+                         <div fxLayoutAlign="end end" fxHide.gt-xs>
+                              <button mdc-button [raised]="true" [secondary]="true"
+                                      (click)="isCheckoutFormShown = true;">
+                                      立即抢购
+                              </button>
+                         </div>
+                    </div>
+               </div>
+               <div style="height: 224px; background-color: white;"
+                    mdc-elevation="2"
+                    fxLayout="row"
+                    fxLayout.xs="column"
+                    ngStyle.xs="height: 448px;">
+                    <div fxFlex="50%"
+                         class="jm-image-container"
+                         style="background-image: url(./assets/images/product0.jpg)">
+                    </div>
+                    <div fxFlex fxLayout="column" style="padding: 16px; background-color: rgba(232,232,232,1)">
+                         <div fxLayout="row" style="border-bottom: 1px solid rgba(0,0,0,0.30);">
+                              <div fxFlex>
+                                   <span mdc-typography-title>珍菌堂纯牛樟精油</span>
+                                   <br>
+                                   <span mdc-typography-body1 style="color: rgba(0,0,0,0.30);">精选爆款</span>
+                              </div>
+                              <div fxLayout="column" fxLayoutAlign="center end">
+                                   <span mdc-typography-body1
+                                         style="color: rgba(0,0,0,0.30); text-decoration: line-through;">
+                                         ¥300.00
+                                   </span>
+                                   <span mdc-typography-subheading1>¥100.00</span>
+                              </div>
+                         </div>
+                         <div fxLayoutAlign="center center"
+                              fxFlex
+                              mdc-typography-display1
+                              style="color: rgba(255,0,0,0.54);">
+                              <strong>抢购完毕</strong>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </div>
+     <app-checkout-form fxFlex.gt-xs="320px"
+                        fxFlex.xs="100%"
+                        mdc-elevation="4"
+                        [fxHide.xs]="!isCheckoutFormShown"
+                        *ngIf="isCheckoutFormShown || media.isActive('gt-xs')"
+                        (isCheckoutFormShown)="isCheckoutFormShown = $event;"
+                        (isCheckoutClicked)="checkoutInfo = $event; dialog.show();"
+                        [@slideInR2L]>
+     </app-checkout-form>
+</div>
+
+<mdc-dialog [clickOutsideToClose]="false"
+            [escapeToClose]="false"
+            #dialog>
+            <mdc-dialog-header>
+              确定购买？
+            </mdc-dialog-header>
+            <mdc-dialog-footer>
+              <button mdc-dialog-button [cancel]="true">取消</button>
+              <button mdc-dialog-button [action]="true" [accept]="true" (click)="checkout(checkoutInfo)">确定购买</button>
+            </mdc-dialog-footer>
+</mdc-dialog>

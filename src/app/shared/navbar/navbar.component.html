@@ -1,0 +1,47 @@
+<mdc-toolbar [fixed]="true" >
+  <mdc-toolbar-row>
+    <mdc-toolbar-section [alignStart]="true" class="navbar-head">
+      <a href="javascript:void(0)" mdc-toolbar-menu-icon material-icon class="navbar-head" (click)="temporary.open()">
+        &#xE5D2;
+      </a>
+      <mdc-toolbar-title>员工福利特区</mdc-toolbar-title>
+    </mdc-toolbar-section>
+  </mdc-toolbar-row>
+</mdc-toolbar>
+
+<mdc-temporary-drawer #temporary>
+  <div class="jm-image-container navbar-content-bgimg">
+    <div class="navbar-content-bg" fxLayout="column">
+      <mdc-temporary-drawer-content>
+        <mdc-list-group>
+          <div class="navbar-content-head">
+            <img src="assets/images/home-logo-1024x1024.png" class="logo">
+            <br>
+            <div>{{ authentication.nickname }}</div>
+            <div>劳务费余额：¥{{ authentication.commB3Balance | number: '1.2-2' }}</div>
+          </div>
+          <mdc-list-divider></mdc-list-divider>
+          <mdc-list>
+            <a mdc-list-item mdc-temporary-drawer-selected href="javascript:void(0)" routerLink="/store">
+              <mdc-icon mdc-list-item-start>store</mdc-icon>所有爆款商品
+            </a>
+            <a mdc-list-item href="javascript:void(0)"
+               routerLink="/orderform">
+              <mdc-icon mdc-list-item-start>table</mdc-icon>我的订单
+            </a>
+          </mdc-list>
+          <mdc-list-divider></mdc-list-divider>
+          <mdc-list>
+            <a mdc-list-item href="javascript:void(0)">
+              <mdc-icon mdc-list-item-start>phone</mdc-icon>联系客服
+            </a>
+          </mdc-list>
+        </mdc-list-group>
+      </mdc-temporary-drawer-content>
+      <div fxFlex></div>
+      <button mdc-button secondary="true" routerLink="/">
+        退出
+      </button>
+    </div>
+  </div>
+</mdc-temporary-drawer>
