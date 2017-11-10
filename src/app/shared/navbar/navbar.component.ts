@@ -1,17 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
 import { MdcSnackbar } from '@angular-mdc/web';
 import { HttpClient } from '@angular/common/http';
 
+import { LoadingService } from '../../tutorial/loading.service';
+
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  selector: "app-navbar",
+  templateUrl: "./navbar.component.html",
+  styleUrls: ["./navbar.component.scss"]
 })
 export class NavbarComponent implements OnInit {
+  nickname: string;
+  commB3Balance: number;
   constructor(
     public authentication: AuthenticationService,
     public http: HttpClient,
+    public loadingService: LoadingService
   ) {}
 
   ngOnInit() {
@@ -20,33 +25,26 @@ export class NavbarComponent implements OnInit {
   }
 
   getUserBalance(): void {
-    this.http
-      .post('http://35.187.154.29/endpoint/dev/getUserBalance.php', {
-        username: this.authentication.username
-      })
-      .subscribe(
-        res => {
-          this.authentication.commB3Balance =
-            res['x-value']['account']['balance'] -
-            res['x-value']['account']['freeze-balance'];
-        },
-        err => {}
-      );
+    this.authentication.getUserBalance().subscribe(
+      res => {
+        if (res.success) {
+          this.commB3Balance =
+            res.data["x-value"]["account"]["balance"] -
+            res.data["x-value"]["account"]["freeze-balance"];
+        }
+      },
+      err => {}
+    );
   }
 
   getUserInfo(): void {
-    this.http
-      .post('http://35.187.154.29/endpoint/dev/getUserInfo.php', {
-        username: this.authentication.username
-      })
-      .subscribe(
-        res => {
-          this.authentication.userInfo = res['x-value']['member'];
-          this.authentication.nickname = this.authentication.userInfo[
-            'nick-name'
-          ];
-        },
-        err => {}
-      );
+    this.authentication.getUserInfo().subscribe(
+      res => {
+        if (res.success) {
+          this.nickname = res.data["x-value"]["member"]["nick-name"];
+        }
+      },
+      err => {}
+    );
   }
 }

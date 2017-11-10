@@ -12,3 +12,17 @@ span:hover {
   text-align:right;
   display:inline-block;
 }
+.orderform{
+  height: 240px;
+  background-color: white;
+  margin-bottom:10px;
+  margin-top:10px;
+  cursor:pointer;
+}
+    .orderform-content{
+      padding: 16px;
+      background-color: rgba(232,232,232,1);
+    }
+        .orderform-content-border{
+          border-top: 1px solid rgba(0,0,0,0.30);
+        }

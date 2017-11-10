@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormGroup,
-  FormControl,
-  FormBuilder,
-  Validators
-} from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { MdcSnackbar } from '@angular-mdc/web';
-import { HttpClient } from '@angular/common/http';
+import { Http, Headers } from '@angular/http';
 import { AuthenticationService } from '../../services/authentication.service';
+import 'rxjs/Rx';
 
 @Component({
   selector: 'app-orderform',
@@ -16,46 +12,54 @@ import { AuthenticationService } from '../../services/authentication.service';
 })
 export class OrderformComponent implements OnInit {
 
-  private orderinfos2: Array<Orderinfo1>;
+  goodsorderinfor: any[];
+  // uuid: any[];
 
   constructor(
-    public http: HttpClient,
+    public http: Http,
     public authentication: AuthenticationService
   ) {
   }
 
   ngOnInit() {
-    this.getOrderInfo();
-    this.orderinfos2 = [
-      new Orderinfo1('精油', 100, 2, '双手合', 13131312451, '啊来得及辣鸡都酸辣粉杰拉德手机费的', '2101-11-11 11:11:11'),
-      new Orderinfo1('火火', 99, 1, '发到付', 15461233651, '啊来得及辣鸡都酸辣粉杰拉德手机费的', '2101-11-11 11:11:11'),
-      new Orderinfo1('慰问费', 100, 2, '双手合', 13131312451, '啊来得及辣鸡都酸辣粉杰拉德手机费', '2101-11-11 11:11:11'),
-      new Orderinfo1('打的费打的费', 100, 2, '双手合', 13131312451, '啊来得及辣鸡都酸辣粉杰拉德手机费', '2101-11-11 11:11:11')
-    ];
+    this.goodsOrderInfor();
+    // this.goodsuuidget();
   }
 
-  getOrderInfo(): void  {
-    this.http.post(
-      'http://192.168.18.197:8080/v1/mall/orders',
-      {
-        username: this.authentication.username
-      }
-    ).subscribe(
-      res => {
-        this.authentication.orderInfo = res['condition'];
-      },
-    );
+  goodsOrderInfor(): void {
+    this.http
+      .get('v1/mall/orders', {
+                              headers: this.authentication.authorizationHeader()
+                            })
+      .map(res => res.json())
+      .subscribe(res => {
+          this.goodsorderinfor = res['data'];
+          // this.getGoodinfo(this.goodsorderinfor[0]['uuid']);
+        }, err => {
+          console.log(err);
+        }, () => {
+          // for (let i = 0; i < this.goodsorderinfor.length; i++) {
+          //   if (this.goodsorderinfor[i]) {
+          //   }
+          // }
+        });
   }
-}
 
-export class Orderinfo1 {
-  constructor(
-    public goodsName: string,
-    public purchasePrice: number,
-    public purchaseQuantity: number,
-    public consignee: string,
-    public phone: number,
-    public address: string,
-    public time: string
-  ) {}
+  // getGoodinfo(uuid): void {
+  //   // this.http
+  //   //   .get('/v1/goods/' + uuid, {
+  //   //                               headers: this.authentication.authorizationHeader()
+  //   //                             }
+  //   // )
+  //   //   .map(res => res.json())
+  //   //   .subscribe(
+  //   //     res => console.log(res)
+  //   //   );
+  //   console.log(uuid);
+  // }
+
+  // goodsuuidget(): void {
+  //   // this.goodsorderinfor.forEach(element => {});
+  // }
+
 }
