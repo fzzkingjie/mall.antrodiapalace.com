@@ -4,6 +4,7 @@
     <strong>立刻以极优惠价格<br>购买爆款产品</strong>
 </div>
 <!-- <div style="margin-bottom: 24px;" ngClass.xs="text-align-center">立刻以极优惠价格购买爆款产品</div> -->
+<div style="margin-top:10px;margin-bottom:10px;">您选择的商品是:<br/><strong style="color:brown;">{{ loadingService.cue_goodsname }}</strong></div>
 <form (ngSubmit)="checkout($event)" [formGroup]="loginForm">
      <mdc-textfield-box type="text"
                         label="收货人名称"
@@ -13,7 +14,7 @@
                         class="checkout-input">
                         <mdc-icon leading>&#xE7FD;</mdc-icon>
      </mdc-textfield-box>
-     <p mdc-textfield-helptext [validation]="true">{{ getErrorMessage(loginForm.controls.name) }}</p>
+     <p mdc-textfield-helptext [validation]="true">{{ getErrorMessage(loginForm.controls['name']) }}</p>
      <mdc-textfield-box type="tel"
                         label="联系电话"
                         [required]="true"
@@ -22,14 +23,24 @@
                         class="checkout-input">
                         <mdc-icon leading>&#xE0CD;</mdc-icon>
      </mdc-textfield-box>
-     <p mdc-textfield-helptext [validation]="true">{{ getErrorMessage(loginForm.controls.contact) }}</p>
+     <p mdc-textfield-helptext [validation]="true">{{ getErrorMessage(loginForm.controls['contact']) }}</p>
      <mdc-textarea label="送货地址"
                    rows="5"
                    [required]="true"
                    formControlName="address"
                    class="checkout-input">
     </mdc-textarea>
-    <p mdc-textfield-helptext [validation]="true">{{ getErrorMessage(loginForm.controls.address) }}</p>
+    <p mdc-textfield-helptext [validation]="true">{{ getErrorMessage(loginForm.controls['address']) }}</p>
+    <div fxLayout="row">
+      <mdc-icon style="margin-left: 8%">add_shopping_cart</mdc-icon>
+      <button type="button" mdc-button (click)="loginForm.value.quantity = loginForm.value.quantity <= 1 ? loginForm.value.quantity : loginForm.value.quantity - 1">
+        <mdc-icon>remove</mdc-icon>
+      </button>
+      <input type="text" [required]="true" formControlName="quantity" readonly="true" style="min-width: 0;border: none;" [value]="loginForm.value.quantity">
+      <button type="button" mdc-button (click)="loginForm.value.quantity = loginForm.value.quantity + 1">
+        <mdc-icon>add</mdc-icon>
+      </button>
+    </div>
     <mdc-textfield-box type="password"
                        label="二级密码"
                        [required]="true"
@@ -38,7 +49,7 @@
                        class="checkout-input resize">
                        <mdc-icon leading>&#xE897;</mdc-icon>
     </mdc-textfield-box>
-    <p mdc-textfield-helptext [validation]="true">{{ getErrorMessage(loginForm.controls.password) }}</p>
+    <p mdc-textfield-helptext [validation]="true">{{ getErrorMessage(loginForm.controls['password']) }}</p>
      <button mdc-button
              type="submit"
              class="checkout-button"

@@ -1,4 +1,4 @@
-<div fxLayout="row" style="width: 100%; height: 100%; background-color: rgba(248,248,248,1);">
+<div fxLayout="row" style="width: 100%; height: 100%; background-color: rgba(248,248,248,1);margin-top:60px;">
 <mdc-permanent-drawer fxHide.xs class="jm-image-container" style="background-image: url(./assets/images/home-background-1000x1000.jpg)">
   <div style="background-color: rgba(255,255,255,0.87); height: 100%;" fxLayout="column">
     <mdc-permanent-drawer-content>
@@ -6,8 +6,8 @@
         <div style="padding: 16px; text-align: center;">
           <img src="assets/images/home-logo-1024x1024.png" class="logo">
           <br>
-          <div>{{ authentication.nickname }}</div>
-          <div>劳务费余额：¥{{ authentication.commB3Balance | number: '1.2-2' }}</div>
+          <div>{{ nickname }}</div>
+          <div>劳务费余额：¥{{ commB3Balance | number: '1.2-2' }}</div>
         </div>
         <mdc-list-divider></mdc-list-divider>
         <mdc-list>
@@ -34,79 +34,60 @@
           [fxHide.xs]="isCheckoutFormShown">
           <div style="padding: 16px;"
                ngStyle.xs="padding-top: 16px;">
-               <div style="height: 224px; background-color: white; margin-bottom: 16px;"
+
+               <div style="height: 224px; background-color: white; margin-bottom: 16px;cursor:pointer;"
                     mdc-elevation="2"
                     fxLayout="row"
                     fxLayout.xs="column"
-                    ngStyle.xs="height: 448px;">
+                    ngStyle.xs="height: 448px;"
+                    *ngFor="let goodsinfo of goodsinfo"
+                    (click)="getUUID(uuid.value,cuegoodsname.value)">
                     <div fxFlex="50%"
                          class="jm-image-container"
-                         style="background-image: url(./assets/images/product1.jpg)">
+                         >
+                         <!-- style="background-image: url(./assets/images/product1.jpg)" -->
+                         <img style="width:100%;height:100%;" src="/v1/mall/goods-image/{{ goodsinfo.goodsPicture }}?access_token={{authentication.getInfo().accessToken}}"/>
                     </div>
+                    <input #uuid type="text" value="{{ goodsinfo.uuid }}" name="uuid" style="display:none;">
                     <div fxFlex fxLayout="column" style="padding: 16px;">
-                         <div fxLayout="row" style="border-bottom: 1px solid rgba(0,0,0,0.30);">
+                          <div fxLayout="row" style="border-bottom: 1px solid rgba(0,0,0,0.30);">
                               <div fxFlex>
-                                   <span mdc-typography-title>高纯度牛樟芝滴丸</span>
+                                  <input #cuegoodsname type="text" value="{{ goodsinfo.goodsName }}" name="uuid" style="display:none;">
+                                   <span mdc-typography-title>{{ goodsinfo.goodsName }}</span>
                                    <br>
                                    <span mdc-typography-body1 style="color: rgba(0,0,0,0.30);">精选爆款</span>
                               </div>
                               <div fxLayout="column" fxLayoutAlign="center end">
                                    <span mdc-typography-body1
                                          style="color: rgba(0,0,0,0.30); text-decoration: line-through;">
-                                         ¥1,200.00
+                                         {{ goodsinfo.goodsMarket }}
                                    </span>
-                                   <span mdc-typography-subheading1>¥369.00</span>
+                                   <span mdc-typography-subheading1>{{ goodsinfo.goodsPrice }}</span>
                               </div>
-                         </div>
-                         <div fxLayoutAlign="center center"
+                          </div>
+                          <div fxLayoutAlign="center center"
                               fxFlex
                               fxLayout="column"
                               mdc-typography-display1
                               style="color: red;">
+                              <!-- <span style="color:#000">销售时间:{{ goodsinfo.goodsSaleTime }}</span>
+                              <strong mdc-typography-subheading1>活动截止时间:{{ goodsinfo.activityDeadline }}</strong> -->
                               <strong>{{ countdown.displayNumbers[0] | number: '2.0-0' }}{{': '}}{{ countdown.displayNumbers[1] | number: '2.0-0' }}{{': '}}{{ countdown.displayNumbers[2] | number: '2.0-0' }}</strong>
-                              <countdown #countdown units="Hours | Minutes | Seconds" end="2017-11-02" fxHide></countdown>
-                              <!-- <div mdc-typography-headline>庫存：{{ 3000 | number: '1.0-0' }} 件</div> -->
-                         </div>
-                         <div fxLayoutAlign="end end" fxHide.gt-xs>
+                              <countdown #countdown units="Hours | Minutes | Seconds" end="{{ goodsinfo.activityDeadline }}" fxHide></countdown>
+                              <div mdc-typography-headline>
+                                <span style="color:#000;">庫存:{{ goodsinfo.goodsStock | number: '1.0-0' }}{{ goodsinfo.goodsUnit }}</span>&nbsp;&nbsp;&nbsp;
+                                剩余:{{ goodsinfo.goodsRemainStock | number: '1.0-0' }}{{ goodsinfo.goodsUnit }}
+                              </div>
+                          </div>
+                          <div fxLayoutAlign="end end" fxHide.gt-xs (click)="getUUID(uuid.value)">
                               <button mdc-button [raised]="true" [secondary]="true"
                                       (click)="isCheckoutFormShown = true;">
                                       立即抢购
                               </button>
-                         </div>
+                          </div>
                     </div>
                </div>
-               <div style="height: 224px; background-color: white;"
-                    mdc-elevation="2"
-                    fxLayout="row"
-                    fxLayout.xs="column"
-                    ngStyle.xs="height: 448px;">
-                    <div fxFlex="50%"
-                         class="jm-image-container"
-                         style="background-image: url(./assets/images/product0.jpg)">
-                    </div>
-                    <div fxFlex fxLayout="column" style="padding: 16px; background-color: rgba(232,232,232,1)">
-                         <div fxLayout="row" style="border-bottom: 1px solid rgba(0,0,0,0.30);">
-                              <div fxFlex>
-                                   <span mdc-typography-title>珍菌堂纯牛樟精油</span>
-                                   <br>
-                                   <span mdc-typography-body1 style="color: rgba(0,0,0,0.30);">精选爆款</span>
-                              </div>
-                              <div fxLayout="column" fxLayoutAlign="center end">
-                                   <span mdc-typography-body1
-                                         style="color: rgba(0,0,0,0.30); text-decoration: line-through;">
-                                         ¥300.00
-                                   </span>
-                                   <span mdc-typography-subheading1>¥100.00</span>
-                              </div>
-                         </div>
-                         <div fxLayoutAlign="center center"
-                              fxFlex
-                              mdc-typography-display1
-                              style="color: rgba(255,0,0,0.54);">
-                              <strong>抢购完毕</strong>
-                         </div>
-                    </div>
-               </div>
+
           </div>
      </div>
      <app-checkout-form fxFlex.gt-xs="320px"

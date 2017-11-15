@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
 import { CountDown } from 'ng2-date-countdown';
 
@@ -21,9 +22,9 @@ import { StoreViewComponent } from './views/store-view/store-view.component';
 import { CheckoutFormComponent } from './views/store-view/checkout-form/checkout-form.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { OrderformComponent } from './shared/orderform/orderform.component';
-import { BackstageComponent } from './views/backstage/backstage.component';
-import { BgLoginInterfaceComponent } from './views/backstage/bg-login-interface/bg-login-interface.component';
-import { BgManageInterfaceComponent } from './views/backstage/bg-manage-interface/bg-manage-interface.component';
+import { LoadingComponent } from './shared/loading/loading.component';
+
+import { LoadingService } from './tutorial/loading.service';
 
 @NgModule({
   declarations: [
@@ -35,9 +36,7 @@ import { BgManageInterfaceComponent } from './views/backstage/bg-manage-interfac
     CountDown,
     NavbarComponent,
     OrderformComponent,
-    BackstageComponent,
-    BgLoginInterfaceComponent,
-    BgManageInterfaceComponent
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -46,12 +45,14 @@ import { BgManageInterfaceComponent } from './views/backstage/bg-manage-interfac
     FlexLayoutModule,
     ReactiveFormsModule,
     HttpClientModule,
+    HttpModule,
     MaterialModule
   ],
   bootstrap: [AppComponent],
   providers: [
     AuthenticationService,
-    AuthenticationGuard
+    AuthenticationGuard,
+    LoadingService
   ],
   entryComponents: [
     LoginFormComponent

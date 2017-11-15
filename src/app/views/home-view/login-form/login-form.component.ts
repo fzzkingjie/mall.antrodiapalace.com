@@ -17,7 +17,7 @@ import { MdcSnackbar } from '@angular-mdc/web';
 export class LoginFormComponent implements OnInit {
 
   loginForm: FormGroup;
-  isLoading: boolean = false;
+  isLoading: Boolean = false;
   snackbarRef: MdcSnackbar;
 
   @Output()
@@ -56,7 +56,7 @@ export class LoginFormComponent implements OnInit {
     response = formControl.hasError('required') ? '这栏必须填写' :
       formControl.hasError('maxlength') ? '数值长度必须少于 32 位' :
       formControl.hasError('pattern') ? '数值格式必须为英文字母、数字或标点符号' : '';
-    
+
     return response;
   }
 
@@ -64,29 +64,24 @@ export class LoginFormComponent implements OnInit {
     if (this.loginForm.valid) {
       this.isLoginFormLoading.emit(true);
       this.isLoading = true;
-      this.http.post(
-        'http://35.187.154.29/endpoint/dev/login.php',
-        this.loginForm.value
-      ).subscribe(
-        res => {
+      this.authentication.login(this.loginForm.value).subscribe(res => {
           console.log(res);
-          if (res["x-return"] == "0") {
-            this.authentication.isLoggedIn = true;
-            this.authentication.username = this.loginForm.value.username;
+          if (res.success) {
+            this.authentication.setInfo({
+              userCode: this.loginForm.value.username,
+              accessToken: res.data.accessToken.access_token,
+              tokenType: res.data.accessToken.token_type
+            });
             this.isLoginFormLoading.emit(false);
             this.isLoading = false;
-            this.router.navigate(['../store']);
-          } else {
-            this.isLoginFormLoading.emit(false);
-            this.isLoading = false;
-            setTimeout(()=>{ this.snackbar.show('登入信息错误，请从新再输入。'); });
+            this.router.navigate(["../store"]);
           }
-        },
-        err => {
-          setTimeout(()=>{ this.snackbar.show('登入信息错误，请从新再输入。'); });
-        }
-      );
-      setTimeout(()=> {
+        }, err => {
+          setTimeout(() => {
+            this.snackbar.show("登入信息错误，请从新再输入。");
+          });
+        });
+      setTimeout(() => {
       }, 1000);
     } else {
       $event.preventDefault();

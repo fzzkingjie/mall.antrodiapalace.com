@@ -1,40 +1,41 @@
-<div *ngFor="let orderinfos2 of orderinfos2" style="height: 260px; background-color: white;margin-bottom:10px;margin-top:10px;" mdc-elevation="2" fxLayout="row" fxLayout.xs="column" ngStyle.xs="height: 448px;">
-<div fxFlex="40%" class="jm-image-container" style="background-image: url(./assets/images/product0.jpg)">
-  <!-- <div fxFlex="40%" class="jm-image-container"> -->
-    <!-- <img src="../../assets/images/product0.jpg" style="height:100%;width:100%;"> -->
+<div style="margin-top:65px;">
+<div *ngFor="let goodsorderinfor of goodsorderinfor" class="orderform" mdc-elevation="2" fxLayout="row" fxLayout.xs="column" ngStyle.xs="height: 448px;">
+<div fxFlex="40%" class="jm-image-container">
+    <img style="width:100%;height:100%;" src="/v1/mall/goods-image/{{ goodsorderinfor.mallOrdersGoodsSet['0'].goods.goodsPicture }}?access_token={{authentication.getInfo().accessToken}}" />
   </div>
 
-  <div fxFlex fxLayout="column" style="padding: 16px; background-color: rgba(232,232,232,1)">
-    <div fxLayout="row" style="border-top: 1px solid rgba(0,0,0,0.30);border-bottom: 1px solid rgba(0,0,0,0.30);">
-      <div fxFlex fxFlex="30%">
+  <div fxFlex fxLayout="column" class="orderform-content">
+    <div fxLayout="row" class="orderform-content-border">
+      <div fxLayout="column" fxFlex fxFlex="30%">
         <span mdc-typography-subheading2>商品名称:</span>
-        <br>
+
         <span mdc-typography-subheading2>购买价格:</span>
-        <br>
+
         <span mdc-typography-subheading2>购买数量:</span>
-        <br>
+
         <span mdc-typography-subheading2>收货名称:</span>
-        <br>
+
         <span mdc-typography-subheading2>联系电话:</span>
-        <br>
+
         <span mdc-typography-subheading2>送货地址:</span>
-        <br>
-        <span mdc-typography-subheading2>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <br>
-        <span mdc-typography-subheading2>购买时间:</span>
+
       </div>
       <div fxLayout="column" fxFlex="70%" fxLayoutAlign="center end">
-        <span mdc-typography-subheading2 class="text-right">{{orderinfos2.goodsName}}</span>
-        <span mdc-typography-subheading2 class="text-right">¥{{orderinfos2.purchasePrice}}</span>
-        <span mdc-typography-subheading2 class="text-right">{{orderinfos2.purchaseQuantity}}</span>
-        <span mdc-typography-subheading2 class="text-right">{{orderinfos2.consignee}}</span>
-        <span mdc-typography-subheading2 class="text-right">{{orderinfos2.phone}}</span>
-        <span mdc-typography-subheading2 class="text-right">{{orderinfos2.address}}</span>
-        <span mdc-typography-subheading2 class="text-right">{{orderinfos2.time}}</span>
+        <span mdc-typography-subheading1 class="text-right">{{ goodsorderinfor.mallOrdersGoodsSet['0'].goods.goodsName }}</span>
+
+        <span mdc-typography-subheading2 class="text-right">¥{{ goodsorderinfor.mallOrdersGoodsSet['0'].price }}</span>
+
+        <span mdc-typography-subheading2 class="text-right">{{ goodsorderinfor.mallOrdersGoodsSet['0'].quantity }}{{ goodsorderinfor.mallOrdersGoodsSet['0'].goods.goodsUnit }}</span>
+
+        <span mdc-typography-subheading2 class="text-right">{{ goodsorderinfor.consigneeName }}</span>
+
+        <span mdc-typography-subheading2 class="text-right">{{ goodsorderinfor.consigneePhone }}</span>
+
+        <span mdc-typography-subheading2 class="text-right">{{ goodsorderinfor.consigneeAddress }}</span>
+
       </div>
     </div>
   </div>
 
 </div>
-
-<!-- <page [(pagination)]="pagination"></page> -->
+</div>

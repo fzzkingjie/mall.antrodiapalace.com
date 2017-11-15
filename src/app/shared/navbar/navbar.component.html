@@ -1,7 +1,7 @@
 <mdc-toolbar [fixed]="true" >
   <mdc-toolbar-row>
     <mdc-toolbar-section [alignStart]="true" class="navbar-head">
-      <a href="javascript:void(0)" mdc-toolbar-menu-icon material-icon class="navbar-head" (click)="temporary.open()">
+      <a href="javascript:void(0)" mdc-toolbar-menu-icon material-icon class="navbar-head" (click)="temporary.open();">
         &#xE5D2;
       </a>
       <mdc-toolbar-title>员工福利特区</mdc-toolbar-title>
@@ -9,6 +9,7 @@
   </mdc-toolbar-row>
 </mdc-toolbar>
 
+<!-- <app-navbar-content></app-navbar-content> -->
 <mdc-temporary-drawer #temporary>
   <div class="jm-image-container navbar-content-bgimg">
     <div class="navbar-content-bg" fxLayout="column">
@@ -17,8 +18,8 @@
           <div class="navbar-content-head">
             <img src="assets/images/home-logo-1024x1024.png" class="logo">
             <br>
-            <div>{{ authentication.nickname }}</div>
-            <div>劳务费余额：¥{{ authentication.commB3Balance | number: '1.2-2' }}</div>
+            <div>{{ nickname }}</div>
+            <div>劳务费余额：¥{{ commB3Balance | number: '1.2-2' }}</div>
           </div>
           <mdc-list-divider></mdc-list-divider>
           <mdc-list>
